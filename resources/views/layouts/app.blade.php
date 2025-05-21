@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +8,22 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <header>
-        @include('layouts.partials.header')
-    </header>
+    @yield('body-start')
+    @include('layouts.partials.header')
 
-    <main class="container py-4">
-        @yield('content')
-    </main>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="d-none d-md-block bg-light sidebar min-vh-100" style="width:240px;">
+            @include('layouts.partials.left-sidebar')
+        </div>
+        <!-- Main Content -->
+        <div class="flex-grow-1 px-4 py-4">
+            <div class="page-content-tab">
+                @yield('content')
+            </div>
+        </div>
+    </div>
 
-
-
+    @yield('body-end')
 </body>
 </html>
