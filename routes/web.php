@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\TiketGangguanController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Tiket Gangguan routes
 Route::resource('tiket-gangguan', TiketGangguanController::class);
+Route::resource('material', MaterialController::class);
 
     

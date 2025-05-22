@@ -40,7 +40,11 @@
     <div class="card mt-4">
         <div class="card-header">
             Daftar Tiket Gangguan
+            <a href="{{ route('tiket-gangguan.create') }}" class="btn btn-primary btn-sm float-end">
+                <i class="fas fa-plus"></i> Tambah Tiket Gangguan
+            </a>
         </div>
+        
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
