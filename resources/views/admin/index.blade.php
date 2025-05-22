@@ -2,7 +2,7 @@
 
 @section('content')
  <!-- Main Content -->
-        <main class="col-md-9 ms-sm-0 col-lg-10 px-md-4">
+        <main >
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Admin Dashboard</h1>
             </div>
@@ -12,7 +12,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card text-bg-primary">
                         <div class="card-body">
-                            <h5 class="card-title">Users</h5>
+                            <h5 class="card-title">Teknisi</h5>
                             <p class="card-text">1,234</p>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card text-bg-success">
                         <div class="card-body">
-                            <h5 class="card-title">Sales</h5>
+                            <h5 class="card-title">Tiket Gangguan</h5>
                             <p class="card-text">$12,345</p>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card text-bg-warning">
                         <div class="card-body">
-                            <h5 class="card-title">Reports</h5>
+                            <h5 class="card-title">Work Order</h5>
                             <p class="card-text">56</p>
                         </div>
                     </div>

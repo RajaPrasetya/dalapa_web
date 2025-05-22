@@ -5,22 +5,30 @@
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/">
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="/">
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
                     <div class="accordion" id="sidebarAccordion">
                         <div class="accordion-item bg-transparent border-0">
                             <h2 class="accordion-header" id="headingApps">
-                                <button class="accordion-button collapsed bg-transparent px-0" type="button" data-bs-toggle="collapse" data-bs-target="#appsMenu" aria-expanded="false" aria-controls="appsMenu">
+                                <button class="accordion-button collapsed bg-transparent px-0 {{ request()->routeIs('tiket-gangguan.*') ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#appsMenu" aria-expanded="{{ request()->routeIs('tiket-gangguan.*') ? 'true' : 'false' }}" aria-controls="appsMenu">
                                     <i class="bi bi-grid me-2"></i> Tiket Gangguan
                                 </button>
                             </h2>
-                            <div id="appsMenu" class="accordion-collapse collapse" aria-labelledby="headingApps" data-bs-parent="#sidebarAccordion">
+                            <div id="appsMenu" class="accordion-collapse collapse {{ request()->routeIs('tiket-gangguan.*') ? 'show' : '' }}" aria-labelledby="headingApps" data-bs-parent="#sidebarAccordion">
                                 <div class="accordion-body py-0 px-0">
                                     <ul class="nav flex-column ms-3">
-                                        <li class="nav-item"><a class="nav-link" href="#">Lihat Tiket Gangguan</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#">Membuat Tiket Gangguan</a></li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ request()->routeIs('tiket-gangguan.index') ? 'active' : '' }}" href="{{ route('tiket-gangguan.index') }}">
+                                                Lihat Tiket Gangguan
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ request()->routeIs('tiket-gangguan.create') ? 'active' : '' }}" href="{{ route('tiket-gangguan.create') }}">
+                                                Membuat Tiket Gangguan
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
