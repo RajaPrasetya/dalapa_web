@@ -28,13 +28,6 @@ DALAPA Web adalah sistem manajemen tiket gangguan dan work order yang memungkink
 - **Hapus Material** - Menghapus material dari sistem jika diperlukan
 - **Kelola Stok** - Mencatat penggunaan dan penambahan stok material
 
-### Pengelolaan Material
-- **Tambah Material** - Menambahkan material baru ke inventaris
-- **Lihat Material** - Melihat detail dan jumlah stok material
-- **Update Material** - Mengubah informasi dan memperbarui jumlah stok material
-- **Hapus Material** - Menghapus material dari sistem jika diperlukan
-- **Kelola Stok** - Mencatat penggunaan dan penambahan stok material
-- **Export CSV** - Mengekspor data material ke format CSV untuk analisis dan pelaporan
 
 ## Requirements
 
