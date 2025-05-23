@@ -35,6 +35,25 @@
             <td>{{ $workorder->id_tiket ?? '-' }}</td>
         </tr>
         <tr>
+            <th>Material</th>
+            <td>
+                {{ $workorder->materials->map(function($material) {
+                    return $material->name . ' (Qty: ' . $material->pivot->qty_used . ')';
+                })->implode(', ') }}
+            </td>
+        </tr>
+        <tr>
+            <th>Photo</th>
+            <td>
+                @if($workorder->photos->isNotEmpty())
+                    @foreach($workorder->photos as $photo)
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="Photo" class="img-thumbnail" style="width: 100px; height: 100px;">
+                    @endforeach
+                @else
+                    No photos available.
+                @endif
+            </td>
+        <tr>
             <th>Created At</th>
             <td>{{ $workorder->created_at }}</td>
         </tr>

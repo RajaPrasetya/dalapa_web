@@ -111,7 +111,50 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div class="form-group row mb-3">
+                            <label class="col-md-4 col-form-label text-md-right">Material Usage</label>
+                            <div class="col-md-6">
+                                <div id="material-usage-container">
+                                    @if($workorder->materialUsage && count($workorder->materialUsage) > 0)
+                                        @foreach($workorder->materialUsage as $usage)
+                                            <div class="material-entry mb-2 d-flex">
+                                                <select name="material_id[]" class="form-control mr-2" style="width: 60%">
+                                                    <option value="">-- Select Material --</option>
+                                                    @foreach($materials as $material)
+                                                        <option value="{{ $material->id_material }}" {{ $usage->material_id == $material->id_material ? 'selected' : '' }}>
+                                                            {{ $material->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                <input type="number" name="material_quantity[]" class="form-control mr-2" style="width: 30%" 
+                                                    placeholder="Qty" value="{{ $usage->quantity }}">
+                                                <button type="button" class="btn btn-danger remove-material">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="material-entry mb-2 d-flex">
+                                            <select name="material_id[]" class="form-control mr-2" style="width: 60%">
+                                                <option value="">-- Select Material --</option>
+                                                @foreach($materials as $material)
+                                                    <option value="{{ $material->id_material }}">{{ $material->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="number" name="material_quantity[]" class="form-control mr-2" style="width: 30%" 
+                                                placeholder="Qty">
+                                            <button type="button" class="btn btn-danger remove-material">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    @endif
+                                </div>
+                                <button type="button" class="btn btn-success mt-2" id="add-material">
+                                    Add Material
+                                </button>
+                            </div>
+                        </div>
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -129,3 +172,45 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add material button
+        document.getElementById('add-material').addEventListener('click', function() {
+            const container = document.getElementById('material-usage-container');
+            const materialEntry = document.createElement('div');
+            materialEntry.className = 'material-entry mb-2 d-flex';
+            
+            materialEntry.innerHTML = `
+                <select name="material_id[]" class="form-control mr-2" style="width: 60%">
+                    <option value="">-- Select Material --</option>
+                    @foreach($materials as $material)
+                        <option value="{{ $material->id_material }}">{{ $material->name }}</option>
+                    @endforeach
+                </select>
+                <input type="number" name="material_quantity[]" class="form-control mr-2" style="width: 30%" 
+                    placeholder="Qty">
+                <button type="button" class="btn btn-danger remove-material">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            
+            container.appendChild(materialEntry);
+            
+            // Add event listener to the new remove button
+            materialEntry.querySelector('.remove-material').addEventListener('click', function() {
+                container.removeChild(materialEntry);
+            });
+        });
+        
+        // Remove material buttons (for initial entries)
+        document.querySelectorAll('.remove-material').forEach(button => {
+            button.addEventListener('click', function() {
+                const entry = this.closest('.material-entry');
+                entry.parentNode.removeChild(entry);
+            });
+        });
+    });
+</script>
+@endpush

@@ -36,6 +36,6 @@
         </div>
     </div>
     @yield('body-end')
-</script>
+    @stack('scripts')
 </body>
 </html>

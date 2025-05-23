@@ -36,4 +36,19 @@ class WorkOrder extends Model
     {
         return $this->belongsTo(TiketGangguan::class, 'id_tiket');
     }
+
+    public function materials()
+    {
+        return $this->belongsToMany(
+            Material::class,
+            'workorder_material',
+            'id_workorder',
+            'id_material'
+        )->withPivot('qty_used', 'total_price')->withTimestamps();
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class, 'id_workorder', 'id_workorder');
+    }
 }
