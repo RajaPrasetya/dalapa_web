@@ -20,7 +20,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('work-order.*') ? 'active' : '' }}" href="#">
+                        <a class="nav-link {{ request()->routeIs('work-order.*') ? 'active' : '' }}" href="{{ route('workorder.index') }}">
                             <i class="bi bi-ui-checks"></i> Work Order
                         </a>
                     </li>
