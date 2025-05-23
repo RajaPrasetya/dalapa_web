@@ -74,6 +74,52 @@ class MaterialController extends Controller
     }
 
     /**
+     * Export materials to CSV.
+     */
+    public function export()
+    {
+        $materials = Material::all();
+        
+        $filename = 'materials_' . date('Y-m-d_His') . '.csv';
+        
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+        
+        // Create a callback function that will be used to stream the CSV
+        $callback = function() use ($materials) {
+            // Create a file pointer
+            $handle = fopen('php://output', 'w');
+            
+            // Add CSV headers
+            fputcsv($handle, ['ID', 'Name', 'Description', 'Quantity', 'Price', 'Created At', 'Updated At']);
+            
+            // Add data rows
+            foreach ($materials as $material) {
+                fputcsv($handle, [
+                    $material->id_material,
+                    $material->name,
+                    $material->description,
+                    $material->quantity,
+                    $material->price,
+                    $material->created_at,
+                    $material->updated_at,
+                ]);
+            }
+            
+            // Close the file
+            fclose($handle);
+        };
+        
+        // Return a streaming response
+        return response()->stream($callback, 200, $headers);
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Material $material)
