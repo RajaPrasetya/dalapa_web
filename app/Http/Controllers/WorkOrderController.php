@@ -6,7 +6,9 @@ use App\Models\Material;
 use App\Models\TiketGangguan;
 use App\Models\User;
 use App\Models\WorkOrder;
+use App\Services\ActivityLogger;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class WorkOrderController extends Controller
 {
@@ -15,7 +17,9 @@ class WorkOrderController extends Controller
      */
     public function index()
     {
-        $workorders = WorkOrder::paginate(10);
+        $workorders = WorkOrder::with(['user', 'assignedUser', 'tiketGangguan', 'materials', 'photos'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
         $totalWorkorderOpen = WorkOrder::where('status', 'open')->count();
         $totalWorkorderInProgress = WorkOrder::where('status', 'in_progress')->count();
         $totalWorkorderClosed = WorkOrder::where('status', 'closed')->count();
@@ -62,6 +66,8 @@ class WorkOrderController extends Controller
             'assigned_to' => $validated['assigned_to'],
             'id_tiket' => $validated['id_tiket'],
         ]);
+
+        ActivityLogger::log('create', 'Work Order created with ID: ' . $newId);
 
         return redirect()->route('workorder.index')->with('success', 'Work Order created successfully.');
     }
@@ -119,7 +125,8 @@ class WorkOrderController extends Controller
 
         // Process material usage
         if ($request->has('material_id') && $request->has('material_quantity')) {
-            $materialData = [];
+            // Get existing materials to avoid duplicates
+            $existingMaterialIds = $workorder->materials->pluck('id_material')->toArray();
             
             foreach ($request->material_id as $index => $materialId) {
                 // Skip empty materials
@@ -127,27 +134,62 @@ class WorkOrderController extends Controller
                 
                 $quantity = $request->material_quantity[$index] ?? 0;
                 
-                // Prepare data for sync
-                $materialData[$materialId] = ['qty_used' => $quantity];
+                // Get material to calculate price
+                $material = Material::find($materialId);
+                if ($material) {
+                    $subtotal = $material->price * $quantity;
+                    
+                    // If this is a new material, attach it
+                    if (!in_array($materialId, $existingMaterialIds)) {
+                        $workorder->materials()->attach($materialId, [
+                            'qty_used' => $quantity,
+                            'total_price' => $subtotal
+                        ]);
+                        
+                        // Deduct from stock
+                        $material->quantity -= $quantity;
+                        $material->save();
+                    }
+                }
             }
             
-            // Sync materials with pivot data
-            $workorder->materials()->sync($materialData);
+            // After attaching new materials, refresh the model to get updated relationships
+            $workorder->refresh();
+            
+            // If you have a total_price field in the work_order table and want to store it
+            if (Schema::hasColumn('work_order', 'total_price')) {
+                // Calculate total from all materials
+                $totalPrice = $workorder->materials->sum(function($material) {
+                    return $material->pivot->total_price;
+                });
+                
+                $workorder->update([
+                    'total_price' => $totalPrice
+                ]);
+            }
         } else {
-            // Clear all materials if none provided
-            $workorder->materials()->detach();
+            // No materials specified in this update, do nothing to preserve existing materials
         }
 
+        // Log the update activity
+        ActivityLogger::log('update', 'Work Order updated with ID: ' . $workorder->id_workorder);
         return redirect()->route('workorder.index')->with('success', 'Work Order updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(WorkOrder $workOrder)
+    public function destroy(WorkOrder $workorder)
     {
-        $workOrder->delete();
-
-        return redirect()->route('workorder.index')->with('success', 'Work Order deleted successfully.');
+        try {
+            ActivityLogger::log('delete', 'Work Order deleted with ID: ' . $workorder->id_workorder);
+            $workorder->delete();
+            
+            return redirect()->route('workorder.index')->with('success', 'Work Order deleted successfully.');
+        } catch (\Exception $e) {
+            \Log::error('Failed to delete work order: ' . $e->getMessage());
+            
+            return redirect()->route('workorder.index')->with('error', 'Failed to delete Work Order: ' . $e->getMessage());
+        }
     }
 }

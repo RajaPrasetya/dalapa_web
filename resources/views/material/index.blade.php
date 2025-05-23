@@ -39,16 +39,16 @@
                                 <td>{{ $material->price }}</td>
                                 <td>
                                     <a href="{{ route('material.show', $material->id_material) }}" class="btn btn-info btn-sm">
-                                        <i class="fas fa-eye"></i>
+                                        <i class="fas fa-eye"></i> Detail
                                     </a>
                                     <a href="{{ route('material.edit', $material->id_material) }}" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <form action="{{ route('material.destroy', $material->id_material) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this material?')">
-                                            <i class="fas fa-trash"></i>
+                                            <i class="fas fa-trash"></i> Delete
                                         </button>
                                     </form>
                                 </td>
@@ -62,9 +62,10 @@
                 </table>
             </div>
             
-            <div class="mt-3">
-                {{ $materials->links() }}
-            </div>
+            {{-- Laravel pagination links --}}
+    <div class="mt-3">
+        {{ $materials->links('pagination::bootstrap-5') }}
+    </div>
         </div>
     </div>
 </div>

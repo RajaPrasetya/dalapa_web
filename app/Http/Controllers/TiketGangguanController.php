@@ -56,6 +56,7 @@ class TiketGangguanController extends Controller
             'status' => $validated['status'],
         ]);
 
+        ActivityLogger::log('create', 'Tiket created with ID: ' . $newId);
         return redirect()->route('tiket-gangguan.index')->with('success', 'Tiket berhasil dibuat!');
     }
 
@@ -89,7 +90,7 @@ class TiketGangguanController extends Controller
 
         // Update TiketGangguan
         $tiketGangguan->update($validated);
-
+        ActivityLogger::log('update', 'Tiket updated with ID: ' . $tiketGangguan->id_tiket);
         return redirect()->route('tiket-gangguan.index')->with('success', 'Tiket berhasil diperbarui!');
     }
 
@@ -98,6 +99,9 @@ class TiketGangguanController extends Controller
      */
     public function destroy(TiketGangguan $tiketGangguan)
     {
+        // log activity
+        ActivityLogger::log('delete', 'Tiket deleted with ID: ' . $tiketGangguan->id_tiket);
+        
         // Delete the TiketGangguan
         $tiketGangguan->delete();
 

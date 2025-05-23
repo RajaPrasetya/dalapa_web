@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('photo_path');
             $table->enum('type', ['sebelum', 'sesudah', 'lain-lain'])->default('lain-lain');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

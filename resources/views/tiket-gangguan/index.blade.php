@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Material Management')
+
 @section('content')
 <!-- Main Content -->
 <main>
@@ -62,8 +64,8 @@
                         @foreach($tiketGangguans as $tiket)
                         <tr>
                             <th scope="row">#{{ $tiket->id_tiket }}</th>
-                            <td>{{ $tiket->headline }}</td>
-                            <td>{{ $tiket->deskripsi }}</td>
+                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $tiket->headline }}</td>
+                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $tiket->deskripsi }}</td>
                             <td>{{ strtoupper($tiket->status) }}</td>
                             <td>{{ $tiket->created_at->format('d-m-Y') }}</td>
                             <td>

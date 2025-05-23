@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('material', function (Blueprint $table) {
-            $table->string('id_material', 16)->primary();
-            $table->string('name');
-            $table->integer('quantity')->default(0);
-            $table->decimal('price', 8, 2)->default(0.00);
+        Schema::create('activities', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('action');
+            $table->text('description')->nullable();
             $table->timestamps();
-            $table->softDeletes(); 
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('material');
+        Schema::dropIfExists('activities');
     }
 };
