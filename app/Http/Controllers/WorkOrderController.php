@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Material;
 use App\Models\TiketGangguan;
 use App\Models\User;
 use App\Models\WorkOrder;
@@ -71,7 +72,7 @@ class WorkOrderController extends Controller
     public function show(WorkOrder $workorder)
     {
         // Load the related models
-        $workorder->load('user', 'assignedUser', 'tiketGangguan');
+        $workorder->load('user', 'assignedUser', 'tiketGangguan', 'materials', 'photos');
         return view('workorder.show', compact('workorder'));
     }
 
@@ -81,12 +82,14 @@ class WorkOrderController extends Controller
     public function edit(WorkOrder $workorder)
     {
         // Load the related models
-        $workorder->load('user', 'assignedUser', 'tiketGangguan');
+        $workorder->load('user', 'assignedUser', 'tiketGangguan', 'materials');
         // get list user with role teknisi
         $teknisis = User::where('role', 'teknisi')->get();
         // Load all list tiket gangguan
         $tiketGangguans = TiketGangguan::all();
-        return view('workorder.edit', compact('workorder', 'teknisis', 'tiketGangguans'));
+        // Load all list material
+        $materials = Material::all();
+        return view('workorder.edit', compact('workorder', 'teknisis', 'tiketGangguans', 'materials'));
     }
 
     /**
@@ -94,22 +97,46 @@ class WorkOrderController extends Controller
      */
     public function update(Request $request, WorkOrder $workorder)
     {
-        $request->validate([
+        $validated = $request->validate([
             'status' => 'required|in:open,in_progress,closed',
             'deskripsi' => 'nullable|string',
             'segmen' => 'nullable|in:feeder,distribusi',
             'assigned_to' => 'nullable|exists:users,id',
             'id_tiket' => 'nullable|string|max:16|exists:tiket_gangguan,id_tiket',
+            'material_id' => 'nullable|array',
+            'material_id.*' => 'nullable|exists:material,id_material',
+            'material_quantity' => 'nullable|array',
+            'material_quantity.*' => 'nullable|numeric|min:1',
         ]);
 
-        // Only update the fields you want to allow
         $workorder->update([
-            'status' => $request->status,
-            'deskripsi' => $request->deskripsi,
-            'segmen' => $request->segmen,
-            'assigned_to' => $request->assigned_to,
-            'id_tiket' => $request->id_tiket,
+            'status' => $validated['status'],
+            'deskripsi' => $validated['deskripsi'],
+            'segmen' => $validated['segmen'],
+            'assigned_to' => $validated['assigned_to'],
+            'id_tiket' => $validated['id_tiket'],
         ]);
+
+        // Process material usage
+        if ($request->has('material_id') && $request->has('material_quantity')) {
+            $materialData = [];
+            
+            foreach ($request->material_id as $index => $materialId) {
+                // Skip empty materials
+                if (empty($materialId)) continue;
+                
+                $quantity = $request->material_quantity[$index] ?? 0;
+                
+                // Prepare data for sync
+                $materialData[$materialId] = ['qty_used' => $quantity];
+            }
+            
+            // Sync materials with pivot data
+            $workorder->materials()->sync($materialData);
+        } else {
+            // Clear all materials if none provided
+            $workorder->materials()->detach();
+        }
 
         return redirect()->route('workorder.index')->with('success', 'Work Order updated successfully.');
     }

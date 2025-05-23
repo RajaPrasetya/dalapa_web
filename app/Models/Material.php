@@ -20,4 +20,14 @@ class Material extends Model
         'quantity',
         'price',
     ];
+
+    public function workOrders()
+    {
+        return $this->belongsToMany(
+            WorkOrder::class,
+            'workorder_material',
+            'id_material',
+            'id_workorder'
+        )->withPivot('qty_used', 'total_price')->withTimestamps();
+    }
 }
