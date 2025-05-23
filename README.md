@@ -64,7 +64,7 @@ A web application built with Laravel framework.
 Start the development server:
 
 ```bash
-php artisan serve
+composer run dev
 ```
 
 You can now access the application at http://localhost:8000
