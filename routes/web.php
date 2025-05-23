@@ -33,6 +33,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Tiket Gangguan routes
 Route::resource('tiket-gangguan', TiketGangguanController::class);
+Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
 Route::resource('material', MaterialController::class);
 Route::resource('workorder', WorkOrderController::class);
 

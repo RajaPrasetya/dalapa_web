@@ -10,9 +10,14 @@
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
             Material List
-            <a href="{{ route('material.create') }}" class="btn btn-primary btn-sm float-end">
-                <i class="fas fa-plus"></i> Add New Material
-            </a>
+            <div class="float-end">
+                <a href="{{ route('material.export') }}" class="btn btn-success btn-sm me-2">
+                    <i class="fas fa-file-csv"></i> Export CSV
+                </a>
+                <a href="{{ route('material.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> Add New Material
+                </a>
+            </div>
         </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="materialsTable" width="100%" cellspacing="0">
