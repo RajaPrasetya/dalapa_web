@@ -6,7 +6,7 @@ A web application built with Laravel framework.
 
 - PHP >= 8.0
 - Composer
-- MySQL or PostgreSQL
+- MySQL
 - Node.js & NPM
 
 ## Installation
@@ -76,7 +76,3 @@ Run the tests with:
 ```bash
 php artisan test
 ```
-
-## License
-
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

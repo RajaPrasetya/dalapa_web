@@ -25,13 +25,12 @@ Route::get('/', function () {
 })->name('home');
 
 //Authentication routes
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.show');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.show');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.show')->middleware('guest');
+Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.show')->middleware('guest');
+Route::post('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-//Tiket Gangguan routes
 Route::resource('tiket-gangguan', TiketGangguanController::class);
 Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
 Route::resource('material', MaterialController::class);
