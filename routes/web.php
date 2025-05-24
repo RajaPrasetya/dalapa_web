@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\TiketGangguanController;
+use App\Http\Controllers\WorkOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+//Authentication routes
+Route::get('/', [AuthController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.show')->middleware('guest');
+Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::resource('tiket-gangguan', TiketGangguanController::class);
+Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
+Route::resource('material', MaterialController::class);
+Route::resource('workorder', WorkOrderController::class);
+
+    

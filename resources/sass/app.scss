@@ -1,0 +1,9 @@
+@import 'bootstrap/scss/bootstrap';
+
+.sidebar .nav-link {
+    color: #333; /* default color */
+}
+.sidebar .nav-link.active {
+    color: #0d6efd; /* blue for active */
+    font-weight: bold;
+}
