@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use App\Services\ActivityLogger;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller
