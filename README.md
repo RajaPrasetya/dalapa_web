@@ -94,4 +94,13 @@ Start the development server:
 composer run dev
 ```
 
+## Default Admin Account
+
+After seeding the database, you can log in with the following admin credentials:
+
+- **Email**: admin@example.com
+- **Password**: admin1234
+
+To log in, navigate to the login page and enter these credentials.
+
 You can now access the application at http://localhost:8000
