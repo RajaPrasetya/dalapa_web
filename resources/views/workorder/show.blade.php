@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th>Assigned To</th>
-            <td>{{ $workorder->assignee->name ?? '-' }}</td>
+            <td>{{ $workorder->assignedUser->name ?? '-' }}</td>
         </tr>
         <tr>
             <th>ID Tiket</th>

@@ -17,7 +17,7 @@ class TiketGangguanFactory extends Factory
     public function definition(): array
     {
         return [
-            'no_tiket' => $this->faker->unique()->numerify('IN-####'),
+            'id_tiket' => $this->faker->unique()->numerify('IN-####'),
             'headline' => $this->faker->sentence(),
             'deskripsi' => $this->faker->paragraph(),
             'status' => $this->faker->randomElement(['open', 'in_progress', 'closed']),

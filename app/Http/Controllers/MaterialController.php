@@ -36,7 +36,8 @@ class MaterialController extends Controller
         ]);
 
         Material::create($request->all());
-
+        $material = Material::create($request->all());
+        ActivityLogger::log('create', 'Material created with ID: ' . $material->id_material);
         return redirect()->route('material.index')->with('success', 'Material created successfully.');
     }
 
@@ -69,6 +70,7 @@ class MaterialController extends Controller
         ]);
 
         $material->update($request->all());
+        ActivityLogger::log('update', 'Material updated with ID: ' . $material->id_material);
 
         return redirect()->route('material.index')->with('success', 'Material updated successfully.');
     }
@@ -89,6 +91,9 @@ class MaterialController extends Controller
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Expires' => '0',
         ];
+        
+        // Log the export activity
+        ActivityLogger::log('export', 'Materials exported to CSV: ' . $filename);
         
         // Create a callback function that will be used to stream the CSV
         $callback = function() use ($materials) {
@@ -124,6 +129,9 @@ class MaterialController extends Controller
      */
     public function destroy(Material $material)
     {
+        // Log the delete activity
+        ActivityLogger::log('delete', 'Material deleted with ID: ' . $material->id_material);
+        // Detach any related work orders
         $material->delete();
 
         return redirect()->route('material.index')->with('success', 'Material deleted successfully.');

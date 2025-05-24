@@ -17,18 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (!auth()->check()) {
-        return redirect()->route('login.show');
-    }
-    return view('Admin.index');
-})->name('home');
+
 
 //Authentication routes
+Route::get('/', [AuthController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.show')->middleware('guest');
 Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.show')->middleware('guest');
-Route::post('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::resource('tiket-gangguan', TiketGangguanController::class);

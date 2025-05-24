@@ -13,7 +13,7 @@
                     <div class="card text-bg-primary">
                         <div class="card-body">
                             <h5 class="card-title">Teknisi</h5>
-                            <p class="card-text">1,234</p>
+                            <p class="card-text">{{ $teknisi }}</p>
                         </div>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                     <div class="card text-bg-success">
                         <div class="card-body">
                             <h5 class="card-title">Tiket Gangguan</h5>
-                            <p class="card-text">$12,345</p>
+                            <p class="card-text">{{ $tiketGangguan }}</p>
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                     <div class="card text-bg-warning">
                         <div class="card-body">
                             <h5 class="card-title">Work Order</h5>
-                            <p class="card-text">56</p>
+                            <p class="card-text">{{ $workOrder }}</p>
                         </div>
                     </div>
                 </div>
@@ -48,23 +48,24 @@
                                     <th scope="col">#</th>
                                     <th scope="col">User</th>
                                     <th scope="col">Action</th>
+                                    <th scope="col">Description</th>
                                     <th scope="col">Date</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>John Doe</td>
-                                    <td>Logged in</td>
-                                    <td>2024-06-01</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jane Smith</td>
-                                    <td>Updated profile</td>
-                                    <td>2024-06-01</td>
-                                </tr>
-                                <!-- Add more rows as needed -->
+                                @forelse($activities as $index => $activity)
+                                    <tr>
+                                        <th scope="row">{{ $index + 1 }}</th>
+                                        <td>{{ $activity->user ? $activity->user->name : 'System' }}</td>
+                                        <td>{{ $activity->action }}</td>
+                                        <td>{{ $activity->description }}</td>
+                                        <td>{{ $activity->created_at->format('Y-m-d H:i') }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">No recent activity found</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

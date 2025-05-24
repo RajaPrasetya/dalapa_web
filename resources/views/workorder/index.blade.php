@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Work Order Management')
+
 @section('content')
 <main>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -65,7 +67,7 @@
                             <td>{{ ucfirst($workorder->segmen) ?? '-' }}</td>
                             <td>{{ Str::limit($workorder->deskripsi, 40) }}</td>
                             <td>{{ $workorder->created_at->format('d-m-Y') }}</td>
-                            <td>{{ $workorder->assignedTo->name ?? 'N/A' }}</td>
+                            <td>{{ $workorder->assignedUser->name ?? 'N/A' }}</td>
                             <td>{{ $workorder->id_tiket ?? 'N/A' }}</td>
                             <td>
                                 <a href="{{ route('workorder.show', $workorder->id_workorder) }}" class="btn btn-info btn-sm">Detail</a>
