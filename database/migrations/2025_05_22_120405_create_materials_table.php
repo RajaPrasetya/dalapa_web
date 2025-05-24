@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('id_material', 16)->primary();
             $table->string('name');
             $table->integer('quantity')->default(0);
-            $table->decimal('price', 8, 2)->default(0.00);
+            $table->decimal('price', 20, 2)->default(0.00);
             $table->timestamps();
             $table->softDeletes(); 
         });
