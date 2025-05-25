@@ -12,7 +12,7 @@
             <p class="card-text"><strong>Harga:</strong> Rp{{ number_format($material->price, 2, ',', '.') }}</p>
             <p class="card-text"><strong>Tanggal Dibuat:</strong> {{ $material->created_at->format('d-m-Y H:i') }}</p>
             <p class="card-text"><strong>Terakhir Diperbarui:</strong> {{ $material->updated_at->format('d-m-Y H:i') }}</p>
-            <a href="{{ route('material.index') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('admin.material.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
     </div>
 </div>

@@ -62,6 +62,6 @@
             <td>{{ $workorder->updated_at }}</td>
         </tr>
     </table>
-    <a href="{{ route('workorder.index') }}" class="btn btn-secondary">Back</a>
+    <a href="{{ route('admin.workorder.index') }}" class="btn btn-secondary">Back</a>
 </div>
 @endsection

@@ -8,7 +8,7 @@
                 <div class="card-header">Edit Work Order</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('workorder.update', $workorder->id_workorder) }}">
+                    <form method="POST" action="{{ route('admin.workorder.update', $workorder->id_workorder) }}">
                         @csrf
                         @method('PUT')
 
@@ -169,7 +169,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Update
                                 </button>
-                                <a href="{{ route('workorder.index') }}" class="btn btn-secondary">
+                                <a href="{{ route('admin.workorder.index') }}" class="btn btn-secondary">
                                     Cancel
                                 </a>
                             </div>

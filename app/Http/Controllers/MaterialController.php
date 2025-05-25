@@ -36,10 +36,9 @@ class MaterialController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        Material::create($request->all());
         $material = Material::create($request->all());
         ActivityLogger::log('create', 'Material created with ID: ' . $material->id_material);
-        return redirect()->route('material.index')->with('success', 'Material created successfully.');
+        return redirect()->route('admin.material.index')->with('success', 'Material created successfully.');
     }
 
     /**
@@ -73,7 +72,7 @@ class MaterialController extends Controller
         $material->update($request->all());
         ActivityLogger::log('update', 'Material updated with ID: ' . $material->id_material);
 
-        return redirect()->route('material.index')->with('success', 'Material updated successfully.');
+        return redirect()->route('admin.material.index')->with('success', 'Material updated successfully.');
     }
 
     /**
@@ -135,6 +134,6 @@ class MaterialController extends Controller
         // Detach any related work orders
         $material->delete();
 
-        return redirect()->route('material.index')->with('success', 'Material deleted successfully.');
+        return redirect()->route('admin.material.index')->with('success', 'Material deleted successfully.');
     }
 }

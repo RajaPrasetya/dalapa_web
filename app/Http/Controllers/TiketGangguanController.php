@@ -57,7 +57,7 @@ class TiketGangguanController extends Controller
         ]);
 
         ActivityLogger::log('create', 'Tiket created with ID: ' . $newId);
-        return redirect()->route('tiket-gangguan.index')->with('success', 'Tiket berhasil dibuat!');
+        return redirect()->route('admin.tiket-gangguan.index')->with('success', 'Tiket berhasil dibuat!');
     }
 
     /**
@@ -91,7 +91,7 @@ class TiketGangguanController extends Controller
         // Update TiketGangguan
         $tiketGangguan->update($validated);
         ActivityLogger::log('update', 'Tiket updated with ID: ' . $tiketGangguan->id_tiket);
-        return redirect()->route('tiket-gangguan.index')->with('success', 'Tiket berhasil diperbarui!');
+        return redirect()->route('admin.tiket-gangguan.index')->with('success', 'Tiket berhasil diperbarui!');
     }
 
     /**
@@ -105,6 +105,6 @@ class TiketGangguanController extends Controller
         // Delete the TiketGangguan
         $tiketGangguan->delete();
 
-        return redirect()->route('tiket-gangguan.index')->with('success', 'Tiket berhasil dihapus!');
+        return redirect()->route('admin.tiket-gangguan.index')->with('success', 'Tiket berhasil dihapus!');
     }
 }

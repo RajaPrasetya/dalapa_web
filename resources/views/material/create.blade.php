@@ -6,7 +6,7 @@
     <h2>Tambah Material Baru</h2>
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('material.store') }}" method="POST">
+            <form action="{{ route('admin.material.store') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
@@ -30,7 +30,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('material.index') }}" class="btn btn-secondary">Batal</a>
+                <a href="{{ route('admin.material.index') }}" class="btn btn-secondary">Batal</a>
             </form>
         </div>
     </div>
