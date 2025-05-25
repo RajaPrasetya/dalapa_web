@@ -34,7 +34,7 @@ class AuthController extends Controller
         if (!auth()->check()) {
             return redirect()->route('login.show');
         }
-        return view('Admin.index', compact('teknisi', 'tiketGangguan', 'workOrder', 'activities'));
+        return view('admin.index', compact('teknisi', 'tiketGangguan', 'workOrder', 'activities'));
     }
     
     //Show Login Form
