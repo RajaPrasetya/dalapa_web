@@ -11,7 +11,7 @@
             <p class="card-text"><strong>Status:</strong> {{ strtoupper(ucfirst(str_replace('_', ' ', $tiketGangguan->status))) }}</p>
             <p class="card-text"><strong>Tanggal Dibuat:</strong> {{ $tiketGangguan->created_at->format('d-m-Y H:i') }}</p>
             <p class="card-text"><strong>Terakhir Diperbarui:</strong> {{ $tiketGangguan->updated_at->format('d-m-Y H:i') }}</p>
-            <a href="{{ route('tiket-gangguan.index') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('admin.tiket-gangguan.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
     </div>
 </div>

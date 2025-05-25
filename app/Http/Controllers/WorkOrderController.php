@@ -68,8 +68,7 @@ class WorkOrderController extends Controller
         ]);
 
         ActivityLogger::log('create', 'Work Order created with ID: ' . $newId);
-
-        return redirect()->route('workorder.index')->with('success', 'Work Order created successfully.');
+        return redirect()->route('admin.workorder.index')->with('success', 'Work Order created successfully.');
     }
 
     /**
@@ -173,7 +172,7 @@ class WorkOrderController extends Controller
 
         // Log the update activity
         ActivityLogger::log('update', 'Work Order updated with ID: ' . $workorder->id_workorder);
-        return redirect()->route('workorder.index')->with('success', 'Work Order updated successfully.');
+        return redirect()->route('admin.workorder.index')->with('success', 'Work Order updated successfully.');
     }
 
     /**
@@ -185,11 +184,11 @@ class WorkOrderController extends Controller
             ActivityLogger::log('delete', 'Work Order deleted with ID: ' . $workorder->id_workorder);
             $workorder->delete();
             
-            return redirect()->route('workorder.index')->with('success', 'Work Order deleted successfully.');
+            return redirect()->route('admin.workorder.index')->with('success', 'Work Order deleted successfully.');
         } catch (\Exception $e) {
             \Log::error('Failed to delete work order: ' . $e->getMessage());
             
-            return redirect()->route('workorder.index')->with('error', 'Failed to delete Work Order: ' . $e->getMessage());
+            return redirect()->route('admin.workorder.index')->with('error', 'Failed to delete Work Order: ' . $e->getMessage());
         }
     }
 }

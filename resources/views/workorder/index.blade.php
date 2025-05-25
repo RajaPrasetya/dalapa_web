@@ -40,7 +40,7 @@
     <div class="card mt-4">
         <div class="card-header">
             Daftar Work Order
-            <a href="{{ route('workorder.create') }}" class="btn btn-primary btn-sm float-end">
+            <a href="{{ route('admin.workorder.create') }}" class="btn btn-primary btn-sm float-end">
                 <i class="fas fa-plus"></i> Tambah Work Order
             </a>
         </div>
@@ -70,9 +70,9 @@
                             <td>{{ $workorder->assignedUser->name ?? 'N/A' }}</td>
                             <td>{{ $workorder->id_tiket ?? 'N/A' }}</td>
                             <td>
-                                <a href="{{ route('workorder.show', $workorder->id_workorder) }}" class="btn btn-info btn-sm">Detail</a>
-                                <a href="{{ route('workorder.edit', $workorder->id_workorder) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="{{ route('workorder.destroy', $workorder->id_workorder) }}" method="POST" style="display:inline;">
+                                <a href="{{ route('admin.workorder.show', $workorder->id_workorder) }}" class="btn btn-info btn-sm">Detail</a>
+                                <a href="{{ route('admin.workorder.edit', $workorder->id_workorder) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('admin.workorder.destroy', $workorder->id_workorder) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>

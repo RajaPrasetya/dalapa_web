@@ -11,10 +11,10 @@
             <i class="fas fa-table me-1"></i>
             Material List
             <div class="float-end">
-                <a href="{{ route('material.export') }}" class="btn btn-success btn-sm me-2">
+                <a href="{{ route('admin.material.export') }}" class="btn btn-success btn-sm me-2">
                     <i class="fas fa-file-csv"></i> Export CSV
                 </a>
-                <a href="{{ route('material.create') }}" class="btn btn-primary btn-sm">
+                <a href="{{ route('admin.material.create') }}" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus"></i> Add New Material
                 </a>
             </div>
@@ -38,13 +38,13 @@
                                 <td>{{ $material->quantity }}</td>
                                 <td>{{ $material->price }}</td>
                                 <td>
-                                    <a href="{{ route('material.show', $material->id_material) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('admin.material.show', $material->id_material) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i> Detail
                                     </a>
-                                    <a href="{{ route('material.edit', $material->id_material) }}" class="btn btn-primary btn-sm">
+                                    <a href="{{ route('admin.material.edit', $material->id_material) }}" class="btn btn-primary btn-sm">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
-                                    <form action="{{ route('material.destroy', $material->id_material) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.material.destroy', $material->id_material) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this material?')">

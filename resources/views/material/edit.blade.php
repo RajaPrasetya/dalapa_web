@@ -6,7 +6,7 @@
     <h2>Edit Material</h2>
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('material.update', $material->id_material) }}" method="POST">
+            <form action="{{ route('admin.material.update', $material->id_material) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -31,7 +31,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a href="{{ route('material.index') }}" class="btn btn-secondary">Batal</a>
+                <a href="{{ route('admin.material.index') }}" class="btn btn-secondary">Batal</a>
             </form>
         </div>
     </div>

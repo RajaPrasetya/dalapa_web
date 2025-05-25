@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2>Buat Tiket Gangguan</h2>
-    <form action="{{ route('tiket-gangguan.store') }}" method="POST">
+    <form action="{{ route('admin.tiket-gangguan.store') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="headline" class="form-label">Headline</label>

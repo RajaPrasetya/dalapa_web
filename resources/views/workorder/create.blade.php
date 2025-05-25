@@ -6,7 +6,7 @@
     <h2>Buat Work Order Baru</h2>
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('workorder.store') }}" method="POST">
+            <form action="{{ route('admin.workorder.store') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
@@ -49,7 +49,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('workorder.index') }}" class="btn btn-secondary">Batal</a>
+                <a href="{{ route('admin.workorder.index') }}" class="btn btn-secondary">Batal</a>
             </form>
         </div>
     </div>

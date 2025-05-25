@@ -42,7 +42,7 @@
     <div class="card mt-4">
         <div class="card-header">
             Daftar Tiket Gangguan
-            <a href="{{ route('tiket-gangguan.create') }}" class="btn btn-primary btn-sm float-end">
+            <a href="{{ route('admin.tiket-gangguan.create') }}" class="btn btn-primary btn-sm float-end">
                 <i class="fas fa-plus"></i> Tambah Tiket Gangguan
             </a>
         </div>
@@ -69,12 +69,9 @@
                             <td>{{ strtoupper($tiket->status) }}</td>
                             <td>{{ $tiket->created_at->format('d-m-Y') }}</td>
                             <td>
-                                <a href="{{ route('tiket-gangguan.show', $tiket->id_tiket) }}"
-                                    class="btn btn-info btn-sm">Detail</a>
-                                <a href="{{ route('tiket-gangguan.edit', $tiket->id_tiket) }}"
-                                    class="btn btn-warning btn-sm">Edit</a>
-                                <form action="{{ route('tiket-gangguan.destroy', $tiket->id_tiket) }}" method="POST"
-                                    style="display:inline;">
+                                <a href="{{ route('admin.tiket-gangguan.show', $tiket->id_tiket) }}" class="btn btn-info btn-sm">Detail</a>
+                                <a href="{{ route('admin.tiket-gangguan.edit', $tiket->id_tiket) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('admin.tiket-gangguan.destroy', $tiket->id_tiket) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
